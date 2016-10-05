@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Fri Mar 04 14:52:43 CET 2011
+onejar.license.required=false
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=felixutil.jar
+manifest.mergeall=true
+manifest.mainclass=com.felix.util.Preprocessor
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=<jar|jna-win32-x86.jar>;<jar|jna.jar>
+includes=<inc|FelixUtil/src>

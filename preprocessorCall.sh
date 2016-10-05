@@ -1,0 +1,1 @@
+java -jar felixutil_02.jar com.felix.util.Preprocessor rules.txt vocab.txt $1

@@ -1,0 +1,5 @@
+com.felix.examples
+com.felix.util
+com.felix.util.image
+com.felix.util.logging
+com.felix.util.scheduler
