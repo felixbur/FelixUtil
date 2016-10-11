@@ -10,8 +10,8 @@ import java.util.StringTokenizer;
 import java.util.Vector;
 
 /**
- * Class for key values, might be read from string, e.g.
- * "key1:value1, key2:value2, etc"
+ * Class for key values, might be read from string, e.g. "key1:value1,
+ * key2:value2, etc"
  * 
  * 
  * 
@@ -24,13 +24,13 @@ public class KeyValues {
 	private KeyValue[] _keyValues;
 	private HashMap<String, String> _hm;
 	private Locale _locale = null;
+	private boolean _warnIfKeyNotPresent = true;
 	/**
 	 * a vector to store file lines of config file in order to keep also the
 	 * comment lines.
 	 **/
 	private Vector<String> _fileLines;
-	private String _pathBase = "", _filePath = "",
-			_keyValueSeparator = DEFAULT_KEYVALUE_SEPARATOR;
+	private String _pathBase = "", _filePath = "", _keyValueSeparator = DEFAULT_KEYVALUE_SEPARATOR;
 
 	/**
 	 * Empty keyValues
@@ -39,6 +39,15 @@ public class KeyValues {
 		_keyValues = new KeyValue[0];
 	}
 
+	public KeyValues(String s, String pairSeparator, String keyValueSeparator, boolean warnIfKeyNotPresent) {
+		this(s, pairSeparator, keyValueSeparator);
+		_warnIfKeyNotPresent = warnIfKeyNotPresent;
+	}
+	public KeyValues(File file, String keyValueSeparator, String charEnc, boolean warnIfKeyNotPresent)  throws Exception {
+		this(file, keyValueSeparator, charEnc);
+		_warnIfKeyNotPresent = warnIfKeyNotPresent;
+	}
+	
 	/**
 	 * Constructor from a String, e.g. "key1:value1, key2:value2, etc".
 	 * 
@@ -129,12 +138,10 @@ public class KeyValues {
 	 * @param charEnc
 	 *            The character encoding
 	 */
-	public KeyValues(InputStream inputStream, String keyValueSeparator,
-			String charEnc) {
+	public KeyValues(InputStream inputStream, String keyValueSeparator, String charEnc) {
 		_keyValueSeparator = keyValueSeparator;
 		try {
-			Vector<String> filelines = FileUtil.getFileLines(inputStream,
-					charEnc);
+			Vector<String> filelines = FileUtil.getFileLines(inputStream, charEnc);
 			readKeyValues(filelines, false);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -190,8 +197,7 @@ public class KeyValues {
 	 * @param charEnc
 	 *            The Character Encoding, e.g. "UTF-8"
 	 */
-	public KeyValues(File file, String keyValueSeparator, String charEnc)
-			throws Exception {
+	public KeyValues(File file, String keyValueSeparator, String charEnc) throws Exception {
 		_keyValueSeparator = keyValueSeparator;
 		_fileLines = FileUtil.getFileLines(file, charEnc);
 		readKeyValues(_fileLines, false);
@@ -242,8 +248,7 @@ public class KeyValues {
 	 *            Separates key from value.
 	 * @return The new Key values.
 	 */
-	public KeyValues addKeyValues(String s, String pairSeparator,
-			String keyValueSeparator) {
+	public KeyValues addKeyValues(String s, String pairSeparator, String keyValueSeparator) {
 		_keyValueSeparator = keyValueSeparator;
 		try {
 			StringTokenizer st = new StringTokenizer(s, pairSeparator);
@@ -426,11 +431,9 @@ public class KeyValues {
 		try {
 			Vector<String> storeVec = new Vector<String>();
 			for (int i = 0; i < _keyValues.length; i++) {
-				storeVec.add(_keyValues[i].getKey() + _keyValueSeparator
-						+ _keyValues[i].getValue());
+				storeVec.add(_keyValues[i].getKey() + _keyValueSeparator + _keyValues[i].getValue());
 			}
-			FileUtil.writeFileContent(_filePath, storeVec,
-					FileUtil.STD_ENCODING);
+			FileUtil.writeFileContent(_filePath, storeVec, FileUtil.STD_ENCODING);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -444,8 +447,7 @@ public class KeyValues {
 			Vector<String> storeVec = new Vector<String>();
 			for (int j = 0; j < _fileLines.size(); j++) {
 				String line = _fileLines.elementAt(j);
-				StringTokenizer st = new StringTokenizer(line,
-						_keyValueSeparator);
+				StringTokenizer st = new StringTokenizer(line, _keyValueSeparator);
 				boolean found = false;
 				try {
 					String keyC = st.nextToken();
@@ -465,8 +467,7 @@ public class KeyValues {
 					storeVec.add(line);
 				}
 			}
-			FileUtil.writeFileContent(_filePath, storeVec,
-					FileUtil.STD_ENCODING);
+			FileUtil.writeFileContent(_filePath, storeVec, FileUtil.STD_ENCODING);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -480,8 +481,7 @@ public class KeyValues {
 			Vector<String> storeVec = new Vector<String>();
 			for (int j = 0; j < _fileLines.size(); j++) {
 				String line = _fileLines.elementAt(j);
-				StringTokenizer st = new StringTokenizer(line,
-						_keyValueSeparator);
+				StringTokenizer st = new StringTokenizer(line, _keyValueSeparator);
 				String keyC = st.nextToken();
 				boolean found = false;
 				for (int i = 0; i < _keyValues.length; i++) {
@@ -510,8 +510,7 @@ public class KeyValues {
 		try {
 			Vector<String> storeVec = new Vector<String>();
 			for (int i = 0; i < _keyValues.length; i++) {
-				storeVec.add(_keyValues[i].getKey() + _keyValueSeparator
-						+ _keyValues[i].getValue());
+				storeVec.add(_keyValues[i].getKey() + _keyValueSeparator + _keyValues[i].getValue());
 			}
 			FileUtil.writeFileContent(fileName, storeVec, FileUtil.STD_ENCODING);
 		} catch (Exception e) {
@@ -523,8 +522,7 @@ public class KeyValues {
 		try {
 			Vector<String> storeVec = new Vector<String>();
 			for (int i = 0; i < _keyValues.length; i++) {
-				storeVec.add(_keyValues[i].getKey() + _keyValueSeparator
-						+ _keyValues[i].getValue());
+				storeVec.add(_keyValues[i].getKey() + _keyValueSeparator + _keyValues[i].getValue());
 			}
 			FileUtil.writeFileContent(fileName, storeVec, ENCODING);
 		} catch (Exception e) {
@@ -540,7 +538,7 @@ public class KeyValues {
 	 */
 	public String getString(String key) {
 		String val = this.getHashMap().get(key);
-		if (val == null) {
+		if (val == null && _warnIfKeyNotPresent) {
 			System.err.println("WARNING: no value for " + key);
 		}
 		return val;
@@ -574,7 +572,7 @@ public class KeyValues {
 				break;
 			}
 		}
-		if (!found) {
+		if (!found && _warnIfKeyNotPresent) {
 			System.err.println("WARNING: no key for " + key + ", adding it.");
 			addKeyValue(new KeyValue(key, newValue));
 		} else {
@@ -593,7 +591,7 @@ public class KeyValues {
 	 */
 	public boolean isString(String key, String tval) {
 		String val = this.getHashMap().get(key);
-		if (val == null) {
+		if (val == null && _warnIfKeyNotPresent) {
 			System.err.println("WARNING: no value for " + key);
 		}
 		if (val.trim().equalsIgnoreCase(tval.trim())) {
@@ -611,7 +609,7 @@ public class KeyValues {
 	 */
 	public boolean getBool(String key) {
 		String val = this.getHashMap().get(key);
-		if (val == null) {
+		if (val == null && _warnIfKeyNotPresent) {
 			System.err.println("WARNING: no value for " + key);
 		}
 		return Boolean.parseBoolean(val);
@@ -626,7 +624,7 @@ public class KeyValues {
 	 */
 	public int getInt(String key) {
 		String val = this.getHashMap().get(key);
-		if (val == null) {
+		if (val == null && _warnIfKeyNotPresent) {
 			System.err.println("WARNING: no value for " + key);
 		}
 		return Integer.parseInt(val);
@@ -644,7 +642,7 @@ public class KeyValues {
 	 */
 	public String[] getStringArray(String key, String sep) {
 		String val = this.getHashMap().get(key);
-		if (val == null) {
+		if (val == null && _warnIfKeyNotPresent) {
 			System.err.println("WARNING: no value for " + key);
 		}
 		return StringUtil.stringToArray(val.trim(), sep);
@@ -660,7 +658,7 @@ public class KeyValues {
 	 */
 	public String[] getStringArray(String key) {
 		String val = this.getHashMap().get(key);
-		if (val == null) {
+		if (val == null && _warnIfKeyNotPresent) {
 			System.err.println("WARNING: no value for " + key);
 		}
 		return StringUtil.stringToArray(val.trim(), " ");
@@ -675,7 +673,7 @@ public class KeyValues {
 	 */
 	public double getDouble(String key) {
 		String val = this.getHashMap().get(key);
-		if (val == null) {
+		if (val == null && _warnIfKeyNotPresent) {
 			System.err.println("WARNING: no value for " + key);
 		}
 		return Double.parseDouble(val);
@@ -690,7 +688,7 @@ public class KeyValues {
 	 */
 	public String getPathValue(String key) {
 		String val = this.getHashMap().get(key);
-		if (val == null) {
+		if (val == null && _warnIfKeyNotPresent) {
 			System.err.println("WARNING: no value for " + key);
 		}
 		if (Util.isEmpty(val)) {
@@ -723,7 +721,7 @@ public class KeyValues {
 	 */
 	public String getAbsPath(String key) {
 		String val = this.getHashMap().get(key);
-		if (val == null) {
+		if (val == null && _warnIfKeyNotPresent) {
 			System.err.println("WARNING: no value for " + key);
 		}
 		return new File(val).getAbsolutePath();
@@ -739,7 +737,7 @@ public class KeyValues {
 	 */
 	public File getFileHandler(String key) {
 		String val = this.getHashMap().get(key);
-		if (val == null) {
+		if (val == null && _warnIfKeyNotPresent) {
 			System.err.println("WARNING: no value for " + key);
 		}
 		return new File(getPathValue(key));
@@ -758,8 +756,7 @@ public class KeyValues {
 		try {
 			// temporary vector to filter comments and empty lines
 			Vector<String> tmp = new Vector<String>();
-			for (Iterator<String> iterator = keyValueStrings.iterator(); iterator
-					.hasNext();) {
+			for (Iterator<String> iterator = keyValueStrings.iterator(); iterator.hasNext();) {
 				String object = (String) iterator.next();
 				if (!FileUtil.isCommentOrEmpty(object)) {
 					tmp.add(object);
@@ -780,12 +777,10 @@ public class KeyValues {
 				String key = "";
 				int sepIndex = object.indexOf(_keyValueSeparator);
 				if (sepIndex < 0) {
-					System.err.println("ignoring line without separator:"
-							+ object);
+					System.err.println("ignoring line without separator:" + object);
 				} else {
 					key = object.substring(0, sepIndex);
-					String value = object.substring(sepIndex + 1,
-							object.length());
+					String value = object.substring(sepIndex + 1, object.length());
 					// if (value.length() == 0) {
 					// System.err.println("WARNING: empty value at " + key);
 					// }
@@ -822,8 +817,7 @@ public class KeyValues {
 	 *            The new KeyValues.
 	 */
 	public void addKeyValues(KeyValues moreKeyValues) {
-		KeyValue[] newKeyValues = new KeyValue[_keyValues.length
-				+ moreKeyValues.getSize()];
+		KeyValue[] newKeyValues = new KeyValue[_keyValues.length + moreKeyValues.getSize()];
 		int i = 0;
 		for (KeyValue kv : _keyValues) {
 			newKeyValues[i++] = kv;
@@ -851,16 +845,14 @@ public class KeyValues {
 					newKeyValues[i++] = kv;
 			}
 		} catch (Exception e) {
-			System.err.println("Warning: Crashed while removing keyValue for "
-					+ key + ", possibly key not contained.");
+			System.err.println("Warning: Crashed while removing keyValue for " + key + ", possibly key not contained.");
 			return;
 
 		}
 		_keyValues = newKeyValues;
 		reloadHashmap();
 		if (origSize - 1 > i) {
-			System.err.println("Warning: removed more than one keyValue for "
-					+ key);
+			System.err.println("Warning: removed more than one keyValue for " + key);
 		}
 	}
 
@@ -892,8 +884,7 @@ public class KeyValues {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		KeyValues kv = new KeyValues("t1,t2;t3,\nt4,,;t5, \"t6 \";t6,", ";",
-				",");
+		KeyValues kv = new KeyValues("t1,t2;t3,\nt4,,;t5, \"t6 \";t6,", ";", ",");
 		System.out.println(kv.toString());
 		System.out.println("value of t1: >" + kv.getString("t1") + "<");
 		System.out.println("value of t2: >" + kv.getString("t2") + "<");
