@@ -167,8 +167,7 @@ public class StringUtil {
 				int cost_delete = newcost[i - 1] + 1;
 
 				// keep minimum cost
-				newcost[i] = Math.min(Math.min(cost_insert, cost_delete),
-						cost_replace);
+				newcost[i] = Math.min(Math.min(cost_insert, cost_delete), cost_replace);
 			}
 
 			// swap cost/newcost arrays
@@ -264,9 +263,8 @@ public class StringUtil {
 	 *            The input, e.g. "Alpha, Romeo 12!"
 	 * @return The output, e.g. "Alpha Romeo 12"
 	 */
-	public static String removeNonAlphanumericCharactersExcludingHyphen(
-			String in) {
-/*		in = in.replace("-", " ");*/
+	public static String removeNonAlphanumericCharactersExcludingHyphen(String in) {
+		/* in = in.replace("-", " "); */
 		return in.replaceAll("[^A-Za-z0-9- üöäßÜÖÄ']", "");
 	}
 
@@ -286,8 +284,7 @@ public class StringUtil {
 		return false;
 	}
 
-	public static boolean isBracketClosed(String test, String oBracket,
-			String cBracket) {
+	public static boolean isBracketClosed(String test, String oBracket, String cBracket) {
 		int oNum = countTokens(test, oBracket);
 		int cNum = countTokens(test, cBracket);
 		if (oNum == cNum)
@@ -346,8 +343,7 @@ public class StringUtil {
 	 *            if not found.
 	 */
 	public static String extracPictureURL(String contents) {
-		String[] extens = new String[] { "\\.jpg", "\\.JPG", "\\.png",
-				"\\.PNG", "\\.gif", "\\.GIF" };
+		String[] extens = new String[] { "\\.jpg", "\\.JPG", "\\.png", "\\.PNG", "\\.gif", "\\.GIF" };
 		String ret = "";
 		for (String ext : extens) {
 			Pattern p = Pattern.compile("http://([^\\:]+?)" + ext);
@@ -655,8 +651,7 @@ public class StringUtil {
 	 *            The array, e.g. "bla bar blubb blubb foo bar"
 	 * @return the results, e.g. 3 or a very large integer
 	 */
-	public static int stringDistanceInVector(String a, String b,
-			Vector<String> sa) {
+	public static int stringDistanceInVector(String a, String b, Vector<String> sa) {
 		boolean aFound = false, bFound = false;
 		int distance = 0;
 		if (sa != null && a != null && b != null) {
@@ -701,8 +696,8 @@ public class StringUtil {
 	}
 
 	/**
-	 * Return true if a keyword from an array is in a string, e.g.
-	 * "banana apple" is in "i eat apple"
+	 * Return true if a keyword from an array is in a string, e.g. "banana
+	 * apple" is in "i eat apple"
 	 * 
 	 * @param s
 	 *            The String, e.g. "i eat apple"
@@ -782,8 +777,8 @@ public class StringUtil {
 	}
 
 	/**
-	 * Return true if a keyword from an array is in a string, e.g.
-	 * "banana apple" is in "i eat apple"
+	 * Return true if a keyword from an array is in a string, e.g. "banana
+	 * apple" is in "i eat apple"
 	 * 
 	 * @param s
 	 *            The String, e.g. "i eat apple"
@@ -893,8 +888,7 @@ public class StringUtil {
 	public static String stripTagsAtPosition(String string, int start, int end) {
 		String temp = string.substring(start, end);
 		temp = stripTags(temp);
-		return string.substring(0, start) + temp
-				+ string.substring(end, string.length());
+		return string.substring(0, start) + temp + string.substring(end, string.length());
 	}
 
 	/**
@@ -911,8 +905,7 @@ public class StringUtil {
 		int end = string.length();
 		String temp = string.substring(start, end);
 		temp = stripTags(temp);
-		return string.substring(0, start) + temp
-				+ string.substring(end, string.length());
+		return string.substring(0, start) + temp + string.substring(end, string.length());
 	}
 
 	/**
@@ -943,8 +936,7 @@ public class StringUtil {
 	 * 
 	 * @return The return, e.g. bla<bar color="es a">foo</bar>bla
 	 */
-	public static String tagStringAtPosition(String string, String tag,
-			int start, int end) {
+	public static String tagStringAtPosition(String string, String tag, int start, int end) {
 		StringTokenizer st = new StringTokenizer(tag);
 		String tagname = "", attribute = "";
 		tagname = st.nextToken();
@@ -952,14 +944,11 @@ public class StringUtil {
 			attribute += st.nextToken() + " ";
 		}
 		if (attribute.length() > 0)
-			return string.substring(0, start) + "<" + tagname + " "
-					+ attribute.trim() + ">" + string.substring(start, end)
-					+ "</" + tagname + ">"
-					+ string.substring(end, string.length());
+			return string.substring(0, start) + "<" + tagname + " " + attribute.trim() + ">"
+					+ string.substring(start, end) + "</" + tagname + ">" + string.substring(end, string.length());
 		else
-			return string.substring(0, start) + "<" + tagname + ">"
-					+ string.substring(start, end) + "</" + tagname + ">"
-					+ string.substring(end, string.length());
+			return string.substring(0, start) + "<" + tagname + ">" + string.substring(start, end) + "</" + tagname
+					+ ">" + string.substring(end, string.length());
 	}
 
 	/**
@@ -1025,6 +1014,8 @@ public class StringUtil {
 	 */
 	public static String[] stringToArray(String s) {
 		String ret[] = null;
+		if (isEmpty(s))
+			return new String[0];
 		StringTokenizer st = new StringTokenizer(s);
 		ret = new String[st.countTokens()];
 		int i = 0;
@@ -1335,8 +1326,7 @@ public class StringUtil {
 	 *            The rear trigger, e.g. "]]".
 	 * @return The contained String (if any), e.g. "foo" or null if not found
 	 */
-	public static String getStringBetween(String target, String front,
-			String rear) {
+	public static String getStringBetween(String target, String front, String rear) {
 		int frontIndex = target.indexOf(front);
 		if (frontIndex < 0)
 			return null;
@@ -1362,8 +1352,7 @@ public class StringUtil {
 	 *            The back possibilites, e.g. {"foo", ";", "faa"}
 	 * @return e.g. " bloblo " or null if not found.
 	 */
-	public static String getStringBetween(String target, String front,
-			String[] rears) {
+	public static String getStringBetween(String target, String front, String[] rears) {
 		int frontIndex = target.indexOf(front);
 		if (frontIndex < 0)
 			return null;
@@ -1390,7 +1379,7 @@ public class StringUtil {
 	 *            The complete String, e.g. "foo bar boo"
 	 * @param sub
 	 *            The part, e.g. "bar"
-	 * @return The result, e.g. "foo  boo"
+	 * @return The result, e.g. "foo boo"
 	 */
 	public static String getWithoutSubstring(String all, String sub) {
 		int i = all.indexOf(sub);
@@ -1400,8 +1389,7 @@ public class StringUtil {
 		return all.substring(0, i) + all.substring(i + len);
 	}
 
-	public static String getStringBetween(String target, String[] fronts,
-			String[] rears) {
+	public static String getStringBetween(String target, String[] fronts, String[] rears) {
 
 		int minFrontPos = target.length();
 		int minRearPos = target.length();
@@ -1419,16 +1407,14 @@ public class StringUtil {
 					minRearPos = pos2;
 			}
 		}
-		if (minFrontPos > 0 && minFrontPos < target.length() && minRearPos > 0
-				&& minRearPos < target.length()) {
+		if (minFrontPos > 0 && minFrontPos < target.length() && minRearPos > 0 && minRearPos < target.length()) {
 			return target.substring(minFrontPos, minRearPos + minFrontPos);
 		} else {
 			return null;
 		}
 	}
 
-	public static String[] removeLastStopwords(String[] query,
-			String[] stopwords) {
+	public static String[] removeLastStopwords(String[] query, String[] stopwords) {
 		Vector<String> ret = new Vector<String>();
 		boolean stopped = false;
 		for (int i = query.length - 1; i >= 0; i--) {
@@ -1444,8 +1430,7 @@ public class StringUtil {
 		return vectorToStringArray(ret);
 	}
 
-	public static String[] removeFirstStopwords(String[] query,
-			String[] stopwords) {
+	public static String[] removeFirstStopwords(String[] query, String[] stopwords) {
 		Vector<String> ret = new Vector<String>();
 		boolean stopped = false;
 		for (String word : query) {
@@ -1467,15 +1452,14 @@ public class StringUtil {
 	 *            The input, e.g. "sample foo bla bar what foo"
 	 * @param stopwords
 	 *            The strings to be removed, e.g. "foo", "bar"
-	 * @return The result, e.g. "sample  bla  what foo"
+	 * @return The result, e.g. "sample bla what foo"
 	 */
 	public static String removeFirstStopwords(String query, String[] stopwords) {
 		String retString = query;
 		for (String word : stopwords) {
 			int i = retString.indexOf(word);
 			if (i >= 0) {
-				retString = retString.substring(0, i)
-						+ retString.substring(i + word.length());
+				retString = retString.substring(0, i) + retString.substring(i + word.length());
 			}
 		}
 		return retString;
@@ -1488,7 +1472,7 @@ public class StringUtil {
 	 *            The input, e.g. "sample foo bla bar what foo"
 	 * @param stopwords
 	 *            The strings to be removed, e.g. "foo", "bar"
-	 * @return The result, e.g. "sample  bla  what "
+	 * @return The result, e.g. "sample bla what "
 	 */
 	public static String removeAllStopwords(String query, String[] stopwords) {
 		String retString = query;
@@ -1498,8 +1482,7 @@ public class StringUtil {
 		return retString;
 	}
 
-	public static String[] removeOuterStopwords(String[] query,
-			String[] stopwords) {
+	public static String[] removeOuterStopwords(String[] query, String[] stopwords) {
 		String[] temp = removeFirstStopwords(query, stopwords);
 		return removeLastStopwords(temp, stopwords);
 	}
@@ -1553,8 +1536,7 @@ public class StringUtil {
 	 *            The stopwords, e.g. "fong"
 	 * @return The result, e.g. "foo bar"
 	 */
-	public static String[] removeStopwordsIgnoreCase(String query,
-			String[] stopwords) {
+	public static String[] removeStopwordsIgnoreCase(String query, String[] stopwords) {
 		Vector<String> ret = new Vector<String>();
 		StringTokenizer st = new StringTokenizer(query);
 		while (st.hasMoreTokens()) {
@@ -1575,8 +1557,7 @@ public class StringUtil {
 	 *            The stopwords, e.g. "fong"
 	 * @return The result, e.g. "foo bar"
 	 */
-	public static String[] removeStopwordsIgnoreCase(String[] query,
-			String[] stopwords) {
+	public static String[] removeStopwordsIgnoreCase(String[] query, String[] stopwords) {
 		Vector<String> ret = new Vector<String>();
 		for (String word : query) {
 			if (!isStringInArrayIgnoreCase(word, stopwords)) {
@@ -1597,8 +1578,7 @@ public class StringUtil {
 	 *            The target String containing the key.
 	 * @return The result String.
 	 */
-	public static String insertBefore(String insertion, String key,
-			String target) {
+	public static String insertBefore(String insertion, String key, String target) {
 		int start = 0;
 		String temp = target;
 		while (start > -1) {
@@ -1606,11 +1586,9 @@ public class StringUtil {
 			if (start > -1) {
 				// int end = start + orig.length();
 				try {
-					temp = temp.substring(0, start) + insertion
-							+ temp.substring(start, temp.length());
+					temp = temp.substring(0, start) + insertion + temp.substring(start, temp.length());
 				} catch (Exception e) {
-					System.err.println("ERROR processing " + key + ", "
-							+ insertion + ", " + target);
+					System.err.println("ERROR processing " + key + ", " + insertion + ", " + target);
 					e.printStackTrace();
 				}
 				start = start + insertion.length() + key.length();
@@ -1631,8 +1609,7 @@ public class StringUtil {
 	 *            The target String containing the key.
 	 * @return The result String.
 	 */
-	public static String insertBeforeIgnoreCase(String insertion, String key,
-			String target) {
+	public static String insertBeforeIgnoreCase(String insertion, String key, String target) {
 		int start = 0;
 		String temp = target;
 		while (start > -1) {
@@ -1640,11 +1617,9 @@ public class StringUtil {
 			if (start > -1) {
 				// int end = start + orig.length();
 				try {
-					temp = temp.substring(0, start) + insertion
-							+ temp.substring(start, temp.length());
+					temp = temp.substring(0, start) + insertion + temp.substring(start, temp.length());
 				} catch (Exception e) {
-					System.err.println("ERROR processing " + key + ", "
-							+ insertion + ", " + target);
+					System.err.println("ERROR processing " + key + ", " + insertion + ", " + target);
 					e.printStackTrace();
 				}
 				start = start + insertion.length() + key.length();
@@ -1672,11 +1647,9 @@ public class StringUtil {
 			if (start > -1) {
 				int end = start + key.length();
 				try {
-					temp = temp.substring(0, end) + insertion
-							+ temp.substring(end, temp.length());
+					temp = temp.substring(0, end) + insertion + temp.substring(end, temp.length());
 				} catch (Exception e) {
-					System.err.println("ERROR processing " + key + ", "
-							+ insertion + ", " + target);
+					System.err.println("ERROR processing " + key + ", " + insertion + ", " + target);
 					e.printStackTrace();
 				}
 				start = end;
@@ -1697,8 +1670,7 @@ public class StringUtil {
 	 *            The target String containing the key.
 	 * @return The result String.
 	 */
-	public static String insertAfterIgnoreCase(String insertion, String key,
-			String target) {
+	public static String insertAfterIgnoreCase(String insertion, String key, String target) {
 		int start = 0;
 		String temp = target;
 		while (start > -1) {
@@ -1706,11 +1678,9 @@ public class StringUtil {
 			if (start > -1) {
 				int end = start + key.length();
 				try {
-					temp = temp.substring(0, end) + insertion
-							+ temp.substring(end, temp.length());
+					temp = temp.substring(0, end) + insertion + temp.substring(end, temp.length());
 				} catch (Exception e) {
-					System.err.println("ERROR processing " + key + ", "
-							+ insertion + ", " + target);
+					System.err.println("ERROR processing " + key + ", " + insertion + ", " + target);
 					e.printStackTrace();
 				}
 				start = end;
@@ -1769,8 +1739,7 @@ public class StringUtil {
 	 *            The separator, e.g. ", "
 	 * @return The String, e.g. "a, a"
 	 */
-	public static String stringArray2String(String[] stringArray,
-			String separator) {
+	public static String stringArray2String(String[] stringArray, String separator) {
 		if (stringArray == null)
 			return null;
 		String ret = "";
@@ -1823,8 +1792,7 @@ public class StringUtil {
 				start = temp.indexOf(orig, offset);
 				if (start > -1) {
 					int end = start + origLen;
-					temp = temp.substring(0, start) + replace
-							+ temp.substring(end, temp.length());
+					temp = temp.substring(0, start) + replace + temp.substring(end, temp.length());
 					offset = start + replaceLen;
 				}
 			}
@@ -1843,7 +1811,8 @@ public class StringUtil {
 		System.out.println(levenshteinDistance("rechnung", "Rechnung"));
 		// System.out.println(removeAllStopwords("sample foo bla bar what foo",
 		// new String[] { "foo", "bar" }));
-		// System.out.println(removeFirstStopwords("sample foo bla bar what foo",
+		// System.out.println(removeFirstStopwords("sample foo bla bar what
+		// foo",
 		// new String[] { "foo", "bar" }));
 
 		// System.out.println(replaceAll("1", "1", "1,1er"));
@@ -1872,7 +1841,8 @@ public class StringUtil {
 		// System.out.println(getFirstGroup("this is my foo.bar test.",
 		// ".*\\s(.{3}\\..{3})\\s.*", 1));
 		// System.out
-		// .println(extracPictureURL("http://test.com/index/blablahttp://test.com/index/bla.jpgquatschnochmal "));
+		// .println(extracPictureURL("http://test.com/index/blablahttp://test.com/index/bla.jpgquatschnochmal
+		// "));
 		// String[] testAb = { "foo", "bar", "foo", "gee" };
 		// boolean isKeyWordArrayinString = isKeywordArrayInStringIgnoreCase(
 		// "ist Foo hier?", testAb);
@@ -1893,16 +1863,21 @@ public class StringUtil {
 		// System.out.println(capitalizeMultipleWords("karl-heinz rumennigge"));
 		// // String test =
 		// //
-		// "Manfred Albrecht Freiherr von Richthofen geboren am	 2. Mai 1892 in Breslau; gestorben am 21. April 1918 bei Vaux-sur-Somme war ein deutscher Jagdflieger im Ersten Weltkrieg";
+		// "Manfred Albrecht Freiherr von Richthofen geboren am 2. Mai 1892 in
+		// Breslau; gestorben am 21. April 1918 bei Vaux-sur-Somme war ein
+		// deutscher Jagdflieger im Ersten Weltkrieg";
 		// String test =
-		// "Albert Einstein geboren am	 14. März 1879 in Ulm, Königreich Württemberg Deutsches Reich; gestorben am 18. April 1955 in Princeton, USA war ein theoretischer Physiker.";
+		// "Albert Einstein geboren am 14. März 1879 in Ulm, Königreich
+		// Württemberg Deutsches Reich; gestorben am 18. April 1955 in
+		// Princeton, USA war ein theoretischer Physiker.";
 		// String[] fronts = { "in", "bei" };
 		// String[] rears = { ";", "war", "gehörte" };
 		// System.out.println(getStringBetween(
 		// test.substring(test.indexOf("gestorben")), fronts, rears));
 		//
 		// test =
-		// "Hans Fallada geboren am	 21. Juli 1893 in Greifswald; gestorben am 5. Februar 1947 in Berlin; eigentlich Rudolf";
+		// "Hans Fallada geboren am 21. Juli 1893 in Greifswald; gestorben am 5.
+		// Februar 1947 in Berlin; eigentlich Rudolf";
 		// System.out.println(getStringBetween(test, "geboren am", "in"));
 		//
 		// String insertion = "</font>";

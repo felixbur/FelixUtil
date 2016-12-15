@@ -43,11 +43,13 @@ public class KeyValues {
 		this(s, pairSeparator, keyValueSeparator);
 		_warnIfKeyNotPresent = warnIfKeyNotPresent;
 	}
-	public KeyValues(File file, String keyValueSeparator, String charEnc, boolean warnIfKeyNotPresent)  throws Exception {
+
+	public KeyValues(File file, String keyValueSeparator, String charEnc, boolean warnIfKeyNotPresent)
+			throws Exception {
 		this(file, keyValueSeparator, charEnc);
 		_warnIfKeyNotPresent = warnIfKeyNotPresent;
 	}
-	
+
 	/**
 	 * Constructor from a String, e.g. "key1:value1, key2:value2, etc".
 	 * 
@@ -572,8 +574,10 @@ public class KeyValues {
 				break;
 			}
 		}
-		if (!found && _warnIfKeyNotPresent) {
-			System.err.println("WARNING: no key for " + key + ", adding it.");
+		if (!found) {
+			if (_warnIfKeyNotPresent) {
+				System.err.println("WARNING: no key for " + key + ", adding it.");
+			}
 			addKeyValue(new KeyValue(key, newValue));
 		} else {
 			reloadHashmap();
